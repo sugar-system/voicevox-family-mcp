@@ -1,0 +1,83 @@
+{
+  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-var": "error", // var の使用を禁止
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_", // _で始まる引数は警告しない
+        "varsIgnorePattern": "^_" // _で始まる変数は警告しない
+      }
+    ],
+    "valid-typeof": "error",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unsafe-return": "warn",
+    "@typescript-eslint/no-unsafe-argument": "warn",
+    "@typescript-eslint/explicit-function-return-type": "warn",
+    "eqeqeq": ["error", "always", { "null": "ignore" }],
+    "@typescript-eslint/no-unsafe-assignment": "warn",
+    "@typescript-eslint/no-unsafe-member-access": "warn",
+    "@typescript-eslint/no-unsafe-call": "warn",
+    "@typescript-eslint/prefer-nullish-coalescing": "warn",
+    "@typescript-eslint/prefer-optional-chain": "warn",
+    "@typescript-eslint/no-misused-promises": "error",
+    "@typescript-eslint/no-floating-promises": "warn",
+    "@typescript-eslint/no-namespace": "off",
+    // 関数やメソッドに関するルール
+    "@typescript-eslint/require-await": "warn",
+
+    // コンパイルエラーになる時だけ教えて欲しい
+    "no-case-declarations": "off",
+    "no-redeclare": "error",
+
+    // コードの明確さを向上させるルール
+    "@typescript-eslint/restrict-template-expressions": "warn",
+    "@typescript-eslint/prefer-as-const": "warn",
+    "@typescript-eslint/consistent-type-imports": "warn",
+    "@typescript-eslint/no-inferrable-types": "warn",
+
+    // 特定のコンテキストでのルール緩和
+    "@typescript-eslint/unbound-method": ["error", { "ignoreStatic": true }],
+
+    // RPGツクールMZ固有の考慮
+    "@typescript-eslint/ban-ts-comment": [
+      "warn",
+      {
+        "ts-ignore": "allow-with-description",
+        "ts-nocheck": false
+      }
+    ],
+    "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+    "no-trailing-spaces": "off"
+  },
+  // RPGツクールMZ対応
+  // .d.ts ファイルに対しては no-var ルールを無効化
+  "overrides": [
+    {
+      "files": ["**/types/**/*.d.ts", "**/*.d.ts"],
+      "rules": {
+        "no-var": "off"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "webpack.config.js",
+    "jest.config.js",
+    "*.js",
+    "../js/plugins/**/*.js",
+    "types/**/*.d.ts",
+    "types/**/*.ts"
+  ]
+}
