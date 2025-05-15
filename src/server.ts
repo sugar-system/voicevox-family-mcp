@@ -63,13 +63,21 @@ class AivisSpeechTTSServer {
   }
 
   private setupTools(): void {
+    // 利用可能な話者
+    // Anneli - ノーマル: 888753760
+    // Anneli - 通常: 888753761
+    // Anneli - テンション高め: 888753762
+    // Anneli - 落ち着き: 888753763
+    // Anneli - 上機嫌: 888753764
+    // Anneli - 怒り・悲しみ: 888753765
+    // white - ノーマル: 706073888
     this.mcp.tool(
       'speak_response',
       {
         text: z.string(),
         style: z.string().default('Neutral'),
         language: z.string().default('JP'),
-        speaker_id: z.number().default(0),
+        speaker_id: z.number().default(888753760), // Anneli - ノーマル
         model_id: z.number().default(0),
         style_weight: z.number().default(1.0),
         sd_ratio: z.number().default(0.2),
