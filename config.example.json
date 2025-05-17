@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "aivis-speech": {
+      "command": "node",
+      "args": [
+        "D:\\proj\\mcp\\aivis-mcp\\dist\\server.js",
+        "--engine",
+        "aivis",
+        "--url",
+        "http://localhost:10101"
+      ]
+    },
+    "voicevox": {
+      "command": "node",
+      "args": [
+        "D:\\proj\\mcp\\aivis-mcp\\dist\\server.js",
+        "--engine",
+        "voicevox",
+        "--url",
+        "http://localhost:50021"
+      ]
+    }
+  }
+}
