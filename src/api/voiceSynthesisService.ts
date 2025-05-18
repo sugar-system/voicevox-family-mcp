@@ -99,7 +99,7 @@ export class VoiceSynthesisService {
     const tempAudioPath = path.join(os.tmpdir(), `audio_output_${Date.now()}.wav`);
 
     try {
-      console.log(`Saving audio to temporary file: ${tempAudioPath}`);
+      console.error(`Saving audio to temporary file: ${tempAudioPath}`);
       await fs.writeFile(tempAudioPath, audioData);
 
       await this.playAudioFile(tempAudioPath);
@@ -123,7 +123,7 @@ export class VoiceSynthesisService {
    */
   private async playAudioFile(audioPath: string): Promise<void> {
     try {
-      console.log('Playing audio from:', audioPath);
+      console.error('Playing audio from:', audioPath);
 
       switch (process.platform) {
         case 'darwin':
