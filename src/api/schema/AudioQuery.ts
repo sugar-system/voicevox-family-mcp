@@ -1,4 +1,4 @@
-import z from 'zod/lib/external';
+import z from 'zod';
 
 /**
  * モーラ（子音＋母音）ごとの情報
