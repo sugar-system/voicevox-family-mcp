@@ -40,7 +40,7 @@ console.error(`🔍 エンジン種類: ${argv.engine}`);
 console.error(`🔗 エンジンURL: ${argv.url}`);
 
 const startServer = async (): Promise<void> => {
-  const mcpServer = new VoiceMcpServer({
+  const mcpServer = VoiceMcpServer.create({
     engineUrl: argv.url,
     engineType: argv.engine as 'aivis' | 'voicevox',
     serverName: `${argv.engine.charAt(0).toUpperCase() + argv.engine.slice(1)} MCP Server`,

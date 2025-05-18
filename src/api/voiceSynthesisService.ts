@@ -30,13 +30,40 @@ export interface Speaker {
 }
 
 /**
+ * 音声合成エンジンとの通信を抽象化するインターフェース
+ */
+export interface IEngineClient {
+  post<T, R>(
+    endpoint: string,
+    data: T | null,
+    params?: Record<string, unknown>,
+    options?: { responseType?: 'json' | 'arraybuffer' },
+  ): Promise<R>;
+  get<R>(endpoint: string, params?: Record<string, unknown>): Promise<R>;
+  // 必要に応じて他のメソッドも追加してね！
+}
+
+/**
  * 音声合成エンジンのAPI処理を担当するクラス
  */
 export class VoiceSynthesisService {
-  private engineClient: EngineClient;
+  private engineClient: IEngineClient;
 
-  constructor(baseUrl: string) {
-    this.engineClient = new EngineClient(baseUrl);
+  /**
+   * @param engineClient 音声合成エンジンとの通信クライアント
+   */
+  constructor(engineClient: IEngineClient) {
+    this.engineClient = engineClient;
+  }
+
+  /**
+   * ファクトリーメソッド
+   * @param baseUrl エンジンのベースURL
+   * @returns VoiceSynthesisServiceのインスタンス
+   */
+  static create(baseUrl: string): VoiceSynthesisService {
+    const engineClient = new EngineClient(baseUrl);
+    return new VoiceSynthesisService(engineClient);
   }
 
   /**

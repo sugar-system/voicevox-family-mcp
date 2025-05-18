@@ -17,6 +17,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 import axios from 'axios';
 import { VoiceSynthesisService } from '../api/voiceSynthesisService';
+import type { AudioQuery } from '../api/schema/AudioQuery';
 
 /**
  * MCPサーバーの設定
@@ -48,16 +49,25 @@ interface SpeakRequestParams {
 }
 
 /**
+ * 音声合成サービスのインターフェース
+ */
+interface IVoiceSynthesisService {
+  createAudioQuery(params: { text: string; speaker: number }): Promise<AudioQuery>;
+  synthesizeSpeech(params: { speaker: number; query: AudioQuery }): Promise<Buffer>;
+  playAudio(audioData: Buffer): Promise<void>;
+}
+
+/**
  * 音声合成MCPサーバークラス
  */
 export class VoiceMcpServer {
   private mcp: McpServer;
-  private voiceService: VoiceSynthesisService;
+  private voiceService: IVoiceSynthesisService;
   private config: McpServerConfig;
 
-  constructor(config: McpServerConfig) {
+  constructor(config: McpServerConfig, voiceService: IVoiceSynthesisService) {
     this.config = config;
-    this.voiceService = new VoiceSynthesisService(config.engineUrl);
+    this.voiceService = voiceService;
 
     this.mcp = new McpServer({
       name: config.serverName,
@@ -152,6 +162,16 @@ export class VoiceMcpServer {
         }
       },
     );
+  }
+
+  /**
+   * ファクトリーメソッド
+   * @param config サーバー設定
+   * @returns VoiceMcpServerのインスタンス
+   */
+  static create(config: McpServerConfig): VoiceMcpServer {
+    const voiceService = VoiceSynthesisService.create(config.engineUrl);
+    return new VoiceMcpServer(config, voiceService);
   }
 
   /**
