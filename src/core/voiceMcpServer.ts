@@ -18,6 +18,7 @@ import { z } from 'zod';
 import axios from 'axios';
 import { VoiceSynthesisService } from '../api/voiceSynthesisService';
 import type { AudioQuery } from '../api/schema/AudioQuery';
+import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
 
 /**
  * MCPサーバーの設定
@@ -65,6 +66,12 @@ export class VoiceMcpServer {
   private voiceService: IVoiceSynthesisService;
   private config: McpServerConfig;
 
+  /**
+   * ツール名→ハンドラのMap（テスト用）
+   */
+  private toolHandlers: Map<string, (params: SpeakRequestParams) => Promise<CallToolResult>> =
+    new Map();
+
   constructor(config: McpServerConfig, voiceService: IVoiceSynthesisService) {
     this.config = config;
     this.voiceService = voiceService;
@@ -97,6 +104,57 @@ export class VoiceMcpServer {
     // 春日部つむぎ（ノーマル）: 8
     const defaultSpeakerId = this.config.engineType === 'aivis' ? 888753760 : 1;
 
+    // speak_responseツールのハンドラを定義
+    const speakResponseHandler = async (
+      params: SpeakRequestParams,
+      _extra?: unknown,
+    ): Promise<CallToolResult> => {
+      try {
+        console.error(`Converting to speech: "${params.text}" with speaker ${params.speaker_id}`);
+        console.error(`Using engine: ${this.config.engineType} at ${this.config.engineUrl}`);
+
+        // ステップ1: AudioQueryを作成
+        const audioQuery = await this.voiceService.createAudioQuery({
+          text: params.text,
+          speaker: params.speaker_id,
+        });
+
+        // パラメータをカスタマイズ
+        audioQuery.intonationScale = params.style_weight;
+        audioQuery.speedScale = params.length; // lengthをspeedScaleに変換
+        audioQuery.volumeScale = 1.0; // デフォルト音量
+
+        // kanaフィールドに読み上げるテキストを設定
+        audioQuery.kana = params.text;
+
+        // ステップ2: 音声合成
+        const audioData = await this.voiceService.synthesizeSpeech({
+          speaker: params.speaker_id,
+          query: audioQuery,
+        });
+
+        // 音声を再生
+        await this.voiceService.playAudio(audioData);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Successfully spoke: "${params.text}" with speaker ID ${params.speaker_id} using ${this.config.engineType}`,
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error('TTS Error:', errorMessage);
+        if (axios.isAxiosError(error) && error.response) {
+          console.error('API Response Status:', error.response.status);
+          console.error('API Response Data:', error.response.data);
+        }
+        throw new Error(`TTS failed: ${errorMessage}`);
+      }
+    };
+
     this.mcp.tool(
       'speak_response',
       {
@@ -114,54 +172,9 @@ export class VoiceMcpServer {
         split_interval: z.number().default(0.5),
         assist_text_weight: z.number().default(1.0),
       },
-      async (params: SpeakRequestParams) => {
-        try {
-          console.error(`Converting to speech: "${params.text}" with speaker ${params.speaker_id}`);
-          console.error(`Using engine: ${this.config.engineType} at ${this.config.engineUrl}`);
-
-          // ステップ1: AudioQueryを作成
-          const audioQuery = await this.voiceService.createAudioQuery({
-            text: params.text,
-            speaker: params.speaker_id,
-          });
-
-          // パラメータをカスタマイズ
-          audioQuery.intonationScale = params.style_weight;
-          audioQuery.speedScale = params.length; // lengthをspeedScaleに変換
-          audioQuery.volumeScale = 1.0; // デフォルト音量
-
-          // kanaフィールドに読み上げるテキストを設定
-          // (これはエンジンごとに少し挙動が異なるが、大体問題ない)
-          audioQuery.kana = params.text;
-
-          // ステップ2: 音声合成
-          const audioData = await this.voiceService.synthesizeSpeech({
-            speaker: params.speaker_id,
-            query: audioQuery,
-          });
-
-          // 音声を再生
-          await this.voiceService.playAudio(audioData);
-
-          return {
-            content: [
-              {
-                type: 'text',
-                text: `Successfully spoke: "${params.text}" with speaker ID ${params.speaker_id} using ${this.config.engineType}`,
-              },
-            ],
-          };
-        } catch (error) {
-          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-          console.error('TTS Error:', errorMessage);
-          if (axios.isAxiosError(error) && error.response) {
-            console.error('API Response Status:', error.response.status);
-            console.error('API Response Data:', error.response.data);
-          }
-          throw new Error(`TTS failed: ${errorMessage}`);
-        }
-      },
+      speakResponseHandler,
     );
+    this.toolHandlers.set('speak_response', speakResponseHandler);
   }
 
   /**
@@ -184,5 +197,16 @@ export class VoiceMcpServer {
       `✅ MCP Server "${this.config.serverName}" v${this.config.serverVersion} started`,
     );
     console.error(`🔌 Connected to ${this.config.engineType} engine at: ${this.config.engineUrl}`);
+  }
+
+  /**
+   * テスト用: ツールのハンドラを取得するよ！(o^―^o)
+   * @param name ツール名
+   * @returns ツールのハンドラ関数 or undefined
+   */
+  public getToolHandler(
+    name: string,
+  ): ((params: SpeakRequestParams) => Promise<CallToolResult>) | undefined {
+    return this.toolHandlers.get(name);
   }
 }

@@ -17,5 +17,5 @@
       "@api/*": ["src/api/*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "jest.config.ts"]
 }
