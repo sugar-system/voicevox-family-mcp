@@ -14,7 +14,15 @@ const argv = minimist(process.argv.slice(2), {
   },
 });
 
-// ヘルプメッセージの表示
+// 設定値バリデーション
+if (!argv.url || typeof argv.url !== 'string' || argv.url.trim() === '') {
+  console.error('❌ エンジンのURL (--url) は文字列で指定してください！');
+  argv.help = true;
+}
+if (!argv.engine || (argv.engine !== 'aivis' && argv.engine !== 'voicevox')) {
+  console.error('❌ エンジンタイプ (--engine) は "aivis" または "voicevox" を指定してください！');
+  argv.help = true;
+}
 if (argv.help) {
   console.error(`
 🎤 Voice MCP Server - Command Line Options 🎤
@@ -31,8 +39,11 @@ Examples:
   node server.js --engine aivis --url http://localhost:10101
   node server.js --engine voicevox --url http://localhost:50021
   `);
-  process.exit(0);
+  process.exit(1);
 }
+// バリデーション済み設定値
+const url = argv.url as string;
+const engine = argv.engine as 'aivis' | 'voicevox';
 
 // 設定値を表示
 console.error(`🎵 Voice MCP Server を起動します`);
@@ -41,9 +52,9 @@ console.error(`🔗 エンジンURL: ${argv.url}`);
 
 const startServer = async (): Promise<void> => {
   const mcpServer = VoiceMcpServer.create({
-    engineUrl: argv.url,
-    engineType: argv.engine as 'aivis' | 'voicevox',
-    serverName: `${argv.engine.charAt(0).toUpperCase() + argv.engine.slice(1)} MCP Server`,
+    engineUrl: url,
+    engineType: engine,
+    serverName: `${engine.charAt(0).toUpperCase() + engine.slice(1)} MCP Server`,
     serverVersion: '1.0.0',
   });
 
