@@ -2,3 +2,6 @@
 .env
 
 node_modules/
+
+# ビルド成果物
+dist/**/*.js
