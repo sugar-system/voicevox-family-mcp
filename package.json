@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "AivisSpeech MCP Server for Claude",
   "main": "dist/server.js",
-  "type": "module",
+  "bin": {
+    "aivis-mcp": "dist/server.js"
+  },
   "scripts": {
-    "build": "tsc",
     "start": "node dist/server.js",
-    "dev": "ts-node --esm src/server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node esbuild.config.cjs",
+    "build:dev": "cross-env NODE_ENV=development node esbuild.config.cjs",
+    "watch": "node esbuild.config.cjs --watch",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "aivisspeech",
@@ -29,6 +34,8 @@
     "@types/node": "^22.14.1",
     "@typescript-eslint/eslint-plugin": "^7.12.0",
     "@typescript-eslint/parser": "^7.12.0",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.25.4",
     "eslint": "^8.57.0",
     "prettier": "^3.5.2",
     "ts-node": "^10.9.2",

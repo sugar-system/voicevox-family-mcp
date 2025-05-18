@@ -74,6 +74,7 @@
   ],
   "ignorePatterns": [
     "webpack.config.js",
+    "esbuild.config.cjs",
     "jest.config.js",
     "*.js",
     "../js/plugins/**/*.js",
