@@ -150,7 +150,7 @@ export class VoiceMcpServer {
     // 四国めたん（あまあま）: 0
     const defaultSpeakerId = this.config.engineType === 'aivis' ? 888753760 : 0;
 
-    this.addTool(
+    this.registerTool(
       'speak_response',
       'TTSサーバにより合成した音声を再生します。' +
         '利用可能な話者IDは「list_speakers」ツールで取得できます。',
@@ -173,7 +173,7 @@ export class VoiceMcpServer {
     );
   }
 
-  private addTool<Args extends ZodRawShape>(
+  private registerTool<Args extends ZodRawShape>(
     name: string,
     description: string,
     paramsSchema: Args,
