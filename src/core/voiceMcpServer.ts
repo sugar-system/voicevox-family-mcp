@@ -92,18 +92,10 @@ export class VoiceMcpServer {
     // デフォルトの話者IDの設定（エンジンタイプによって異なる）
     // Aivis Speech
     // Anneli - ノーマル: 888753760
-    // Anneli - 通常: 888753761
-    // Anneli - テンション高め: 888753762
-    // Anneli - 落ち着き: 888753763
-    // Anneli - 上機嫌: 888753764
-    // Anneli - 怒り・悲しみ: 888753765
-    // white - ノーマル: 706073888
     //
     // VOICEVOX
     // 四国めたん（あまあま）: 0
-    // ずんだもん（あまあま）: 1
-    // 春日部つむぎ（ノーマル）: 8
-    const defaultSpeakerId = this.config.engineType === 'aivis' ? 888753760 : 1;
+    const defaultSpeakerId = this.config.engineType === 'aivis' ? 888753760 : 0;
 
     // speak_responseツールのハンドラを定義
     const speakResponseHandler = async (
