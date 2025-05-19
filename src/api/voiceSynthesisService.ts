@@ -50,6 +50,7 @@ export interface IVoiceSynthesisService {
   createAudioQuery(params: { text: string; speaker: number }): Promise<AudioQuery>;
   synthesizeSpeech(params: { speaker: number; query: AudioQuery }): Promise<Buffer>;
   playAudio(audioData: Buffer): Promise<void>;
+  getSpeakers(): Promise<Speaker[]>;
 }
 
 /**
