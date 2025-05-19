@@ -29,6 +29,7 @@ export class VoiceMcpServer {
   private mcp: McpServer;
   private voiceService: IVoiceSynthesisService;
   private config: McpServerConfig;
+  private toolFactories: IToolFactory<any>[] = []; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   /**
    * MCPサーバーに登録済みのtool（テスト用）
@@ -44,15 +45,22 @@ export class VoiceMcpServer {
       version: config.serverVersion,
     });
 
+    this.setupToolFactories();
     this.setupTools();
+  }
+
+  private setupToolFactories(): void {
+    // 音声合成ツール
+    this.toolFactories.push(createSpeakResponseFactory(this.voiceService, this.config));
   }
 
   /**
    * MCPツールを設定する
    */
   private setupTools(): void {
-    // 音声合成ツール
-    this.registerTool(createSpeakResponseFactory(this.voiceService, this.config));
+    for (const factory of this.toolFactories) {
+      this.registerTool(factory);
+    }
   }
 
   /**
