@@ -1,5 +1,5 @@
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
-import type { IVoiceSynthesisService } from '@api/voiceSynthesisService';
+import type { IVoiceSynthesisService, Speaker } from '@api/voiceSynthesisService';
 import { ToolFactory, type IToolFactory } from './tool-factory';
 import { z } from 'zod';
 
@@ -27,21 +27,14 @@ export function createListSpeakersFactory(
       // 話者一覧を取得
       const speakers = await voiceService.getSpeakers();
 
-      // 話者情報をフォーマット
-      const speakerList = speakers
-        .map(speaker => {
-          const styles = speaker.styles
-            .map(style => `  - ${style.name} (ID: ${style.id})`)
-            .join('\n');
-          return `• ${speaker.name} (UUID: ${speaker.speaker_uuid})\n${styles}`;
-        })
-        .join('\n\n');
+      // 話者情報をシンプルな形式でフォーマット（AI解析用）
+      const speakerList = speakers.map(formatSpeakerInfo).join('\n');
 
       return {
         content: [
           {
             type: 'text',
-            text: `利用可能な話者一覧:\n\n${speakerList}`,
+            text: speakerList,
           },
         ],
       };
@@ -52,9 +45,20 @@ export function createListSpeakersFactory(
     }
   };
 
+  /**
+   * 話者情報をAIが解析しやすいシンプルな形式にフォーマットする
+   */
+  function formatSpeakerInfo(speaker: Speaker): string {
+    // スタイル情報をシンプルに整形
+    const styles = speaker.styles.map(style => `${style.name}(ID:${style.id})`).join(', ');
+
+    // シンプルで構造化された形式
+    return `話者:${speaker.name}, UUID:${speaker.speaker_uuid}, スタイル:[${styles}]`;
+  }
+
   return new ToolFactory(
     'list_speakers',
-    '利用可能な話者（声優）の一覧を取得します。',
+    '利用可能な話者（声優）の一覧を取得します。各話者のスタイルIDは、speak_responseツールで使用できます。',
     listSpeakersSchema.shape,
     listSpeakersHandler,
   );
