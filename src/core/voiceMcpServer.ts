@@ -85,6 +85,59 @@ export class VoiceMcpServer {
     this.setupTools();
   }
 
+  // *================================
+  // * ツールハンドラー
+  // *================================
+  private async speakResponseHandler(
+    params: SpeakRequestParams,
+    _extra?: unknown,
+  ): Promise<CallToolResult> {
+    try {
+      console.error(`Converting to speech: "${params.text}" with speaker ${params.speaker_id}`);
+      console.error(`Using engine: ${this.config.engineType} at ${this.config.engineUrl}`);
+
+      // ステップ1: AudioQueryを作成
+      const audioQuery = await this.voiceService.createAudioQuery({
+        text: params.text,
+        speaker: params.speaker_id,
+      });
+
+      // パラメータをカスタマイズ
+      audioQuery.intonationScale = params.style_weight;
+      audioQuery.speedScale = params.length; // lengthをspeedScaleに変換
+      audioQuery.volumeScale = 1.0; // デフォルト音量
+
+      // kanaフィールドに読み上げるテキストを設定
+      audioQuery.kana = params.text;
+
+      // ステップ2: 音声合成
+      const audioData = await this.voiceService.synthesizeSpeech({
+        speaker: params.speaker_id,
+        query: audioQuery,
+      });
+
+      // 音声を再生
+      await this.voiceService.playAudio(audioData);
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `Successfully spoke: "${params.text}" with speaker ID ${params.speaker_id} using ${this.config.engineType}`,
+          },
+        ],
+      };
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('TTS Error:', errorMessage);
+      if (axios.isAxiosError(error) && error.response) {
+        console.error('API Response Status:', error.response.status);
+        console.error('API Response Data:', error.response.data);
+      }
+      throw new Error(`TTS failed: ${errorMessage}`);
+    }
+  }
+
   /**
    * MCPツールを設定する
    */
@@ -96,57 +149,6 @@ export class VoiceMcpServer {
     // VOICEVOX
     // 四国めたん（あまあま）: 0
     const defaultSpeakerId = this.config.engineType === 'aivis' ? 888753760 : 0;
-
-    // speak_responseツールのハンドラを定義
-    const speakResponseHandler = async (
-      params: SpeakRequestParams,
-      _extra?: unknown,
-    ): Promise<CallToolResult> => {
-      try {
-        console.error(`Converting to speech: "${params.text}" with speaker ${params.speaker_id}`);
-        console.error(`Using engine: ${this.config.engineType} at ${this.config.engineUrl}`);
-
-        // ステップ1: AudioQueryを作成
-        const audioQuery = await this.voiceService.createAudioQuery({
-          text: params.text,
-          speaker: params.speaker_id,
-        });
-
-        // パラメータをカスタマイズ
-        audioQuery.intonationScale = params.style_weight;
-        audioQuery.speedScale = params.length; // lengthをspeedScaleに変換
-        audioQuery.volumeScale = 1.0; // デフォルト音量
-
-        // kanaフィールドに読み上げるテキストを設定
-        audioQuery.kana = params.text;
-
-        // ステップ2: 音声合成
-        const audioData = await this.voiceService.synthesizeSpeech({
-          speaker: params.speaker_id,
-          query: audioQuery,
-        });
-
-        // 音声を再生
-        await this.voiceService.playAudio(audioData);
-
-        return {
-          content: [
-            {
-              type: 'text',
-              text: `Successfully spoke: "${params.text}" with speaker ID ${params.speaker_id} using ${this.config.engineType}`,
-            },
-          ],
-        };
-      } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        console.error('TTS Error:', errorMessage);
-        if (axios.isAxiosError(error) && error.response) {
-          console.error('API Response Status:', error.response.status);
-          console.error('API Response Data:', error.response.data);
-        }
-        throw new Error(`TTS failed: ${errorMessage}`);
-      }
-    };
 
     this.addTool(
       'speak_response',
@@ -167,7 +169,7 @@ export class VoiceMcpServer {
         split_interval: z.number().default(0.5),
         assist_text_weight: z.number().default(1.0),
       },
-      speakResponseHandler,
+      this.speakResponseHandler.bind(this),
     );
   }
 
