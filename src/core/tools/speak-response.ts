@@ -23,7 +23,7 @@ export interface SpeakRequestParams {
   style_weight: number;
 }
 
-export function createSpeakRespoinseFactory(
+export function createSpeakResponseFactory(
   voiceService: IVoiceSynthesisService,
   config: McpServerConfig,
 ): IToolFactory<typeof speakRequestParamsSchema.shape> {

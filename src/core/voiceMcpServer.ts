@@ -20,7 +20,7 @@ import type { IVoiceSynthesisService } from '../api/voiceSynthesisService';
 import { VoiceSynthesisService } from '../api/voiceSynthesisService';
 import type { McpServerConfig } from './mcp-server-config';
 import type { IToolFactory } from './tools/tool-factory';
-import { createSpeakRespoinseFactory } from './tools/speak-response';
+import { createSpeakResponseFactory } from './tools/speak-response';
 
 /**
  * 音声合成MCPサーバークラス
@@ -52,7 +52,7 @@ export class VoiceMcpServer {
    */
   private setupTools(): void {
     // 音声合成ツール
-    this.registerTool(createSpeakRespoinseFactory(this.voiceService, this.config));
+    this.registerTool(createSpeakResponseFactory(this.voiceService, this.config));
   }
 
   /**
