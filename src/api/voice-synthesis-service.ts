@@ -1,11 +1,11 @@
-import { EngineClient } from '@http/engineClient';
+import { EngineClient } from '@/http/engine-client';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import * as os from 'os';
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import type { AudioQuery } from '@api/schema/AudioQuery';
-import { isAudioQuery } from '@api/schema/AudioQuery';
+import type { AudioQuery } from '@/api/schema/audio-query';
+import { isAudioQuery } from '@/api/schema/audio-query';
 
 const execAsync = promisify(exec);
 

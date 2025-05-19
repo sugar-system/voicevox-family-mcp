@@ -1,4 +1,4 @@
-import { VoiceMcpServer } from '@core/voiceMcpServer';
+import { VoiceMcpServer } from '@/core/voice-mcp-server';
 import minimist from 'minimist';
 
 // コマンドライン引数をパース

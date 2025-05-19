@@ -2,10 +2,10 @@
  * VoiceMcpServerの本格テストだよ！(o^―^o)
  * engineClientをモックにしてVoiceMcpServerとVoiceSynthesisServiceの連携をテストするよ！
  */
-import { VoiceMcpServer } from '../voiceMcpServer';
-import type { IEngineClient } from '../../api/voiceSynthesisService';
-import { VoiceSynthesisService } from '../../api/voiceSynthesisService';
-import type { AudioQuery } from '../../api/schema/AudioQuery';
+import { VoiceMcpServer } from '../voice-mcp-server';
+import type { IEngineClient } from '../../api/voice-synthesis-service';
+import { VoiceSynthesisService } from '../../api/voice-synthesis-service';
+import type { AudioQuery } from '../../api/schema/audio-query';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
 
 // ダミーAudioQueryを作るよ！

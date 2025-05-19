@@ -1,5 +1,5 @@
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
-import type { IVoiceSynthesisService, Speaker } from '@api/voiceSynthesisService';
+import type { IVoiceSynthesisService, Speaker } from '@/api/voice-synthesis-service';
 import { ToolFactory, type IToolFactory } from './tool-factory';
 import { z } from 'zod';
 
@@ -53,12 +53,12 @@ export function createListSpeakersFactory(
     const styles = speaker.styles.map(style => `${style.name}(ID:${style.id})`).join(', ');
 
     // シンプルで構造化された形式
-    return `話者:${speaker.name}, UUID:${speaker.speaker_uuid}, スタイル:[${styles}]`;
+    return `Speaker:${speaker.name}, UUID:${speaker.speaker_uuid}, Styles:[${styles}]`;
   }
 
   return new ToolFactory(
     'list_speakers',
-    '利用可能な話者（声優）の一覧を取得します。各話者のスタイルIDは、speak_responseツールで使用できます。',
+    "Get a list of available speakers (voice actors). Each speaker's style ID can be used with the speak_response tool.",
     listSpeakersSchema.shape,
     listSpeakersHandler,
   );
