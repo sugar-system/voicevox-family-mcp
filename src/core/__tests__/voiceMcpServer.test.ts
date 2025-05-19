@@ -6,6 +6,7 @@ import { VoiceMcpServer } from '../voiceMcpServer';
 import type { IEngineClient } from '../../api/voiceSynthesisService';
 import { VoiceSynthesisService } from '../../api/voiceSynthesisService';
 import type { AudioQuery } from '../../api/schema/AudioQuery';
+import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
 
 // ダミーAudioQueryを作るよ！
 const dummyAudioQuery: AudioQuery = {
@@ -73,7 +74,7 @@ describe('VoiceMcpServer', () => {
       assist_text_weight: 1.0,
     };
 
-    const result = await handler!(params);
+    const result: CallToolResult = await (handler as any)!(params); // eslint-disable-line
 
     // playAudioが呼ばれたかチェック！
     expect(_playAudio).toHaveBeenCalled();

@@ -12,8 +12,10 @@ if (typeof global.window === 'undefined') {
   global.window = _window as unknown as Window & typeof globalThis;
 }
 
+import type { RegisteredTool, ToolCallback } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import type { ZodRawShape } from 'zod';
 import { z } from 'zod';
 import axios from 'axios';
 import { VoiceSynthesisService } from '../api/voiceSynthesisService';
@@ -33,7 +35,7 @@ interface McpServerConfig {
 /**
  * MCPクライアントからのリクエストパラメータ
  */
-interface SpeakRequestParams {
+export interface SpeakRequestParams {
   text: string;
   language: string;
   speaker_id: number;
@@ -67,10 +69,9 @@ export class VoiceMcpServer {
   private config: McpServerConfig;
 
   /**
-   * ツール名→ハンドラのMap（テスト用）
+   * MCPサーバーに登録済みのtool（テスト用）
    */
-  private toolHandlers: Map<string, (params: SpeakRequestParams) => Promise<CallToolResult>> =
-    new Map();
+  private registerdTools: Map<string, RegisteredTool> = new Map();
 
   constructor(config: McpServerConfig, voiceService: IVoiceSynthesisService) {
     this.config = config;
@@ -155,8 +156,10 @@ export class VoiceMcpServer {
       }
     };
 
-    this.mcp.tool(
+    this.addTool(
       'speak_response',
+      'TTSサーバにより合成した音声を再生します。' +
+        '利用可能な話者IDは「list_speakers」ツールで取得できます。',
       {
         text: z.string(),
         style: z.string().default('Neutral'),
@@ -174,7 +177,16 @@ export class VoiceMcpServer {
       },
       speakResponseHandler,
     );
-    this.toolHandlers.set('speak_response', speakResponseHandler);
+  }
+
+  private addTool<Args extends ZodRawShape>(
+    name: string,
+    description: string,
+    paramsSchema: Args,
+    handler: ToolCallback<Args>,
+  ): void {
+    const registeredTool = this.mcp.tool(name, description, paramsSchema, handler);
+    this.registerdTools.set(name, registeredTool);
   }
 
   /**
@@ -204,9 +216,7 @@ export class VoiceMcpServer {
    * @param name ツール名
    * @returns ツールのハンドラ関数 or undefined
    */
-  public getToolHandler(
-    name: string,
-  ): ((params: SpeakRequestParams) => Promise<CallToolResult>) | undefined {
-    return this.toolHandlers.get(name);
+  public getToolHandler(name: string): ToolCallback<undefined | ZodRawShape> | undefined {
+    return this.registerdTools.get(name)?.callback;
   }
 }
