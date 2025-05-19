@@ -2,7 +2,6 @@ import type { CallToolResult } from '@modelcontextprotocol/sdk/types';
 import type { IVoiceSynthesisService } from '@api/voiceSynthesisService';
 import type { McpServerConfig } from '@core/mcp-server-config';
 import { ToolFactory, type IToolFactory } from './tool-factory';
-import type { ZodRawShape } from 'zod';
 import { z } from 'zod';
 import axios from 'axios';
 /**
@@ -24,10 +23,10 @@ export interface SpeakRequestParams {
   style_weight: number;
 }
 
-export function createSpeakRespoinseFactory<T extends ZodRawShape>(
+export function createSpeakRespoinseFactory(
   voiceService: IVoiceSynthesisService,
   config: McpServerConfig,
-): IToolFactory<T> {
+): IToolFactory<typeof speakRequestParamsSchema.shape> {
   // デフォルトの話者IDの設定（エンジンタイプによって異なる）
   // Aivis Speech
   // Anneli - ノーマル: 888753760
@@ -102,11 +101,11 @@ export function createSpeakRespoinseFactory<T extends ZodRawShape>(
     }
   };
 
-  return new ToolFactory<T>(
+  return new ToolFactory(
     'speak_response',
     'TTSサーバにより合成した音声を再生します。' +
       '利用可能な話者IDは「list_speakers」ツールで取得できます。',
-    speakRequestParamsSchema,
+    speakRequestParamsSchema.shape,
     speakResponseHandler,
   );
 }

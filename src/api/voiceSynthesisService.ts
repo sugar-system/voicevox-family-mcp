@@ -44,6 +44,15 @@ export interface IEngineClient {
 }
 
 /**
+ * 音声合成サービスのインターフェース
+ */
+export interface IVoiceSynthesisService {
+  createAudioQuery(params: { text: string; speaker: number }): Promise<AudioQuery>;
+  synthesizeSpeech(params: { speaker: number; query: AudioQuery }): Promise<Buffer>;
+  playAudio(audioData: Buffer): Promise<void>;
+}
+
+/**
  * 音声合成エンジンのAPI処理を担当するクラス
  */
 export class VoiceSynthesisService {
