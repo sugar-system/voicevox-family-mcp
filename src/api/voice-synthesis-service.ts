@@ -139,18 +139,16 @@ export class VoiceSynthesisService {
       await fs.writeFile(tempAudioPath, audioData);
 
       await this.playAudioFile(tempAudioPath);
-
-      // 一時ファイルを削除
-      await fs.unlink(tempAudioPath);
     } catch (error) {
       console.error('Error playing audio:', error);
-      // エラーがあっても一時ファイルを削除しようとする
+      throw error;
+    } finally {
+      // 一時ファイルを削除
       try {
         await fs.unlink(tempAudioPath);
       } catch {
         // 削除エラーは無視
       }
-      throw error;
     }
   }
 
