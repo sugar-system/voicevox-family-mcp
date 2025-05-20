@@ -16,7 +16,7 @@ export interface AudioQueryParams {
 
 export interface SynthesisParams {
   speaker: number;
-  query: unknown; // AudioQueryオブジェクト
+  query: unknown;
 }
 
 export interface Speaker {
@@ -40,7 +40,6 @@ export interface IEngineClient {
     options?: { responseType?: 'json' | 'arraybuffer' },
   ): Promise<R>;
   get<R>(endpoint: string, params?: Record<string, unknown>): Promise<R>;
-  // 必要に応じて他のメソッドも追加してね！
 }
 
 /**
