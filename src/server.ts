@@ -1,7 +1,7 @@
 import { VoiceMcpServer } from '@/core/voice-mcp-server';
 import minimist from 'minimist';
 
-// コマンドライン引数をパース
+// Parse command line arguments
 const argv = minimist(process.argv.slice(2), {
   default: {
     engine: 'aivis',
@@ -14,13 +14,13 @@ const argv = minimist(process.argv.slice(2), {
   },
 });
 
-// 設定値バリデーション
+// Validate settings
 if (!argv.url || typeof argv.url !== 'string' || argv.url.trim() === '') {
-  console.error('❌ エンジンのURL (--url) は文字列で指定してください！');
+  console.error('❌ Engine URL (--url) must be a valid string!');
   argv.help = true;
 }
 if (!argv.engine || (argv.engine !== 'aivis' && argv.engine !== 'voicevox')) {
-  console.error('❌ エンジンタイプ (--engine) は "aivis" または "voicevox" を指定してください！');
+  console.error('❌ Engine type (--engine) must be "aivis" or "voicevox"!');
   argv.help = true;
 }
 if (argv.help) {
@@ -31,9 +31,9 @@ Usage:
   node server.js [options]
 
 Options:
-  --engine, -e    音声合成エンジンの種類 (aivis または voicevox) [default: aivis]
-  --url, -u       エンジンのベースURL [default: http://127.0.0.1:10101]
-  --help, -h      このヘルプメッセージを表示
+  --engine, -e    Voice synthesis engine type (aivis or voicevox) [default: aivis]
+  --url, -u       Engine base URL [default: http://127.0.0.1:10101]
+  --help, -h      Show this help message
 
 Examples:
   node server.js --engine aivis --url http://localhost:10101
@@ -41,14 +41,14 @@ Examples:
   `);
   process.exit(1);
 }
-// バリデーション済み設定値
+// Validated settings
 const url = argv.url as string;
 const engine = argv.engine as 'aivis' | 'voicevox';
 
-// 設定値を表示
-console.error(`🎵 Voice MCP Server を起動します`);
-console.error(`🔍 エンジン種類: ${argv.engine}`);
-console.error(`🔗 エンジンURL: ${argv.url}`);
+// Display settings
+console.error(`🎵 Starting Voice MCP Server`);
+console.error(`🔍 Engine type: ${argv.engine}`);
+console.error(`🔗 Engine URL: ${argv.url}`);
 
 const startServer = async (): Promise<void> => {
   const mcpServer = VoiceMcpServer.create({
@@ -61,8 +61,8 @@ const startServer = async (): Promise<void> => {
   await mcpServer.start();
 };
 
-// サーバーを起動
+// Start server
 startServer().catch(error => {
-  console.error('😱 MCPサーバーの起動に失敗しました:', error);
+  console.error('😱 Failed to start MCP server:', error);
   process.exit(1);
 });
