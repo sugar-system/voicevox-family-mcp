@@ -11,21 +11,16 @@ export class EngineClient {
   }
 
   /**
-   * 音声合成エンジンのエンドポイントにPOSTリクエストを送信するよ！
+   * 音声合成エンジンのエンドポイントにPOSTリクエストを送信する
    *
-   * @template T 送信するデータの型だよ
-   * @template R 期待するレスポンスの型だよ
+   * @template T 送信するデータの型
+   * @template R 期待するレスポンスの型
    * @param endpoint エンドポイントのパス（例: '/synthesize' など）
-   * @param data 送信するデータ（なければ null でもOK！）
-   * @param params クエリパラメータ（必要なら指定してね）
-   * @param options レスポンスの型（'json' か 'arraybuffer'）を選べるよ
-   * @returns サーバーから返ってきたデータ（型Rだと信じて返すよ！）
-   * @throws 通信エラーやサーバーエラーが発生した場合に投げるよ
-   *
-   * @remarks
-   * 実際のレスポンスの中身が本当にR型かどうかは保証できないから、
-   * 必要なら呼び出し側で型チェックやバリデーションしてね！
-   * 型アサーション（as R）で返してるから、油断は禁物だよ〜！(๑˃̵ᴗ˂̵)
+   * @param data 送信するデータ
+   * @param params クエリパラメータ
+   * @param options レスポンスの型（'json' か 'arraybuffer'）
+   * @returns サーバーから返ってきたデータ
+   * @throws 通信エラーやサーバーエラーが発生した場合に投げる
    */
   public async post<T, R>(
     endpoint: string,
@@ -49,18 +44,13 @@ export class EngineClient {
   }
 
   /**
-   * 音声合成エンジンのエンドポイントにGETリクエストを送信するよ！
+   * 音声合成エンジンのエンドポイントにGETリクエストを送信する
    *
-   * @template R 期待するレスポンスの型だよ
-   * @param endpoint エンドポイントのパス（例: '/status' など）
-   * @param params クエリパラメータ（必要なら指定してね）
-   * @returns サーバーから返ってきたデータ（型Rだと信じて返すよ！）
-   * @throws 通信エラーやサーバーエラーが発生した場合に投げるよ
-   *
-   * @remarks
-   * 実際のレスポンスの中身が本当にR型かどうかは保証できないから、
-   * 必要なら呼び出し側で型チェックやバリデーションしてね！
-   * 型アサーション（as R）で返してるから、油断は禁物だよ〜！(๑˃̵ᴗ˂̵)
+   * @template R 期待するレスポンスの型
+   * @param endpoint エンドポイントのパス
+   * @param params クエリパラメータ
+   * @returns サーバーから返ってきたデータ
+   * @throws 通信エラーやサーバーエラーが発生した場合に投げる
    */
   public async get<R>(endpoint: string, params?: Record<string, unknown>): Promise<R> {
     try {

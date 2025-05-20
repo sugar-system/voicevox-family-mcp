@@ -101,7 +101,7 @@ export class VoiceMcpServer {
   }
 
   /**
-   * テスト用: ツールのハンドラを取得するよ！(o^―^o)
+   * テスト用: ツールのハンドラを取得
    * @param name ツール名
    * @returns ツールのハンドラ関数 or undefined
    */

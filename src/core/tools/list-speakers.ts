@@ -11,7 +11,7 @@ import { z } from 'zod';
 export function createListSpeakersFactory(
   voiceService: IVoiceSynthesisService,
 ): IToolFactory<typeof listSpeakersSchema.shape> {
-  // 空のスキーマを定義（パラメータ不要の場合）
+  // 空スキーマ
   const listSpeakersSchema = z.object({});
 
   /**
@@ -49,10 +49,7 @@ export function createListSpeakersFactory(
    * 話者情報をAIが解析しやすいシンプルな形式にフォーマットする
    */
   function formatSpeakerInfo(speaker: Speaker): string {
-    // スタイル情報をシンプルに整形
     const styles = speaker.styles.map(style => `${style.name}(ID:${style.id})`).join(', ');
-
-    // シンプルで構造化された形式
     return `Speaker:${speaker.name}, UUID:${speaker.speaker_uuid}, Styles:[${styles}]`;
   }
 

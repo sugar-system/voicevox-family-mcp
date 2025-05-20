@@ -67,8 +67,8 @@ export function createSpeakResponseFactory(
 
       // パラメータをカスタマイズ
       audioQuery.intonationScale = params.style_weight;
-      audioQuery.speedScale = params.length; // lengthをspeedScaleに変換
-      audioQuery.volumeScale = 1.0; // デフォルト音量
+      audioQuery.speedScale = params.length;
+      audioQuery.volumeScale = 1.0;
 
       // kanaフィールドに読み上げるテキストを設定
       audioQuery.kana = params.text;
@@ -79,7 +79,7 @@ export function createSpeakResponseFactory(
         query: audioQuery,
       });
 
-      // 音声を再生
+      // ステップ3: 音声を再生
       await voiceService.playAudio(audioData);
 
       return {
