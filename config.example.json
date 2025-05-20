@@ -3,7 +3,7 @@
     "aivis-speech": {
       "command": "node",
       "args": [
-        "D:\\proj\\mcp\\aivis-mcp\\dist\\server.js",
+        "D:\\proj\\mcp\\voicevox-mcp\\dist\\server.js",
         "--engine",
         "aivis",
         "--url",
@@ -13,7 +13,7 @@
     "voicevox": {
       "command": "node",
       "args": [
-        "D:\\proj\\mcp\\aivis-mcp\\dist\\server.js",
+        "D:\\proj\\mcp\\voicevox-mcp\\dist\\server.js",
         "--engine",
         "voicevox",
         "--url",
