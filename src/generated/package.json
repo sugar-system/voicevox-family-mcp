@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "openapi-typescript-codegen": "^0.29.0"
+  },
+  "scripts": {
+    "generate": "npx openapi-typescript-codegen --input openapi.json --output api/",
+    "generate:voicevox": "npx openapi-typescript-codegen --input voicevox/openapi.json --output voicevox/api/",
+    "generate:aivis": "npx openapi-typescript-codegen --input aivis-speech/openapi.json --output aivis-speech/api/",
+    "generate:coeiroink": "npx openapi-typescript-codegen --input coeiroink/openapi.json --output coeiroink/api/",
+    "generate:all": "npm run generate:voicevox && npm run generate:aivis && npm run generate:coeiroink"
+  }
+}
