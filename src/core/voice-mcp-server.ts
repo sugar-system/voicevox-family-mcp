@@ -28,7 +28,7 @@ import { createListSpeakersFactory } from './tools/list-speakers';
  */
 export class VoiceMcpServer {
   private mcp: McpServer;
-  private voiceService: IVoiceSynthesisService;
+  private voiceServices: Map<string, IVoiceSynthesisService>;
   private config: McpServerConfig;
   private toolFactories: IToolFactory<any>[] = []; // eslint-disable-line @typescript-eslint/no-explicit-any
 
@@ -37,9 +37,9 @@ export class VoiceMcpServer {
    */
   private registeredTools: Map<string, RegisteredTool> = new Map();
 
-  constructor(config: McpServerConfig, voiceService: IVoiceSynthesisService) {
+  constructor(config: McpServerConfig, voiceServices: Map<string, IVoiceSynthesisService>) {
     this.config = config;
-    this.voiceService = voiceService;
+    this.voiceServices = voiceServices;
 
     this.mcp = new McpServer({
       name: config.serverName,
@@ -52,8 +52,8 @@ export class VoiceMcpServer {
 
   private setupToolFactories(): void {
     // 音声合成ツール
-    this.toolFactories.push(createSpeakResponseFactory(this.voiceService, this.config));
-    this.toolFactories.push(createListSpeakersFactory(this.voiceService));
+    this.toolFactories.push(createSpeakResponseFactory(this.voiceServices, this.config));
+    this.toolFactories.push(createListSpeakersFactory(this.voiceServices));
   }
 
   /**
@@ -84,8 +84,15 @@ export class VoiceMcpServer {
    * @returns VoiceMcpServerのインスタンス
    */
   static create(config: McpServerConfig): VoiceMcpServer {
-    const voiceService = VoiceSynthesisService.create(config.engineUrl);
-    return new VoiceMcpServer(config, voiceService);
+    const voiceServices = new Map<string, IVoiceSynthesisService>();
+
+    // 各サーバーのVoiceSynthesisServiceを作成
+    for (const server of config.servers) {
+      const voiceService = VoiceSynthesisService.create(server.url);
+      voiceServices.set(server.id, voiceService);
+    }
+
+    return new VoiceMcpServer(config, voiceServices);
   }
 
   /**
@@ -97,7 +104,11 @@ export class VoiceMcpServer {
     console.error(
       `✅ MCP Server "${this.config.serverName}" v${this.config.serverVersion} started`,
     );
-    console.error(`🔌 Connected to ${this.config.engineType} engine at: ${this.config.engineUrl}`);
+
+    // 接続されたサーバー一覧を表示
+    for (const server of this.config.servers) {
+      console.error(`🔌 Connected to ${server.type} engine "${server.id}" at: ${server.url}`);
+    }
   }
 
   /**
