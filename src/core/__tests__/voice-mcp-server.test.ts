@@ -45,20 +45,31 @@ describe('VoiceMcpServer', () => {
     const _playAudio = jest.fn().mockResolvedValue(undefined);
     voiceService.playAudio = _playAudio;
 
-    // VoiceMcpServerを作るよ
+    // VoiceMcpServerを作るよ（新しい複数サーバ形式）
     const config = {
-      engineUrl: 'http://dummy-engine',
-      engineType: 'aivis' as const,
+      servers: [
+        {
+          id: 'test-server',
+          url: 'http://dummy-engine',
+          type: 'aivis' as const,
+        },
+      ],
       serverName: 'テストサーバー',
       serverVersion: '1.0.0',
     };
-    const server = new VoiceMcpServer(config, voiceService);
+
+    // 複数サーバ対応のため、voiceServicesのMapを作成
+    const voiceServices = new Map();
+    voiceServices.set('test-server', voiceService);
+
+    const server = new VoiceMcpServer(config, voiceServices); // eslint-disable-line @typescript-eslint/no-unsafe-argument
 
     // speak_responseツールのハンドラをgetterで取得するよ！
     const handler = server.getToolHandler('speak_response');
     expect(handler).toBeDefined();
 
     const params = {
+      server_id: 'test-server', // 新しく追加されたパラメータ
       text: 'こんにちは！',
       style: 'Neutral',
       language: 'JP',
