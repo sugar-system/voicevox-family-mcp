@@ -35,7 +35,7 @@ export class VoiceMcpServer {
   /**
    * MCPサーバーに登録済みのtool（テスト用）
    */
-  private registerdTools: Map<string, RegisteredTool> = new Map();
+  private registeredTools: Map<string, RegisteredTool> = new Map();
 
   constructor(config: McpServerConfig, voiceService: IVoiceSynthesisService) {
     this.config = config;
@@ -75,7 +75,7 @@ export class VoiceMcpServer {
       factory.schema,
       factory.handler,
     );
-    this.registerdTools.set(factory.name, registeredTool);
+    this.registeredTools.set(factory.name, registeredTool);
   }
 
   /**
@@ -106,6 +106,6 @@ export class VoiceMcpServer {
    * @returns ツールのハンドラ関数 or undefined
    */
   public getToolHandler(name: string): ToolCallback<undefined | ZodRawShape> | undefined {
-    return this.registerdTools.get(name)?.callback;
+    return this.registeredTools.get(name)?.callback;
   }
 }
