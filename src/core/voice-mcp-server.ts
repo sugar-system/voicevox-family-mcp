@@ -16,8 +16,8 @@ import type { RegisteredTool, ToolCallback } from '@modelcontextprotocol/sdk/ser
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import type { ZodRawShape } from 'zod';
-import type { IVoiceSynthesisService } from '../api/voice-synthesis-service';
-import { VoiceSynthesisService } from '../api/voice-synthesis-service';
+import type { IVoiceSynthesisService } from '@api/voice-synthesis-service';
+import { VoiceSynthesisService } from '@api/voice-synthesis-service';
 import type { McpServerConfig } from './mcp-server-config';
 import type { IToolFactory } from './tools/tool-factory';
 import { createSpeakResponseFactory } from './tools/speak-response';
