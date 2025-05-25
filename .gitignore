@@ -8,5 +8,4 @@ dist/**/*.js
 dist/**/*.js.map
 
 # AIアシスタント向けドキュメント
-memory-bank/
 setup-cursor-memory-bank.sh
