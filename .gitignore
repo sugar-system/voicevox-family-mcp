@@ -6,3 +6,6 @@ node_modules/
 # ビルド成果物
 dist/**/*.js
 dist/**/*.js.map
+
+# AIアシスタント向けドキュメント
+memory-bank/

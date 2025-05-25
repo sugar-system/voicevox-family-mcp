@@ -1,1 +1,4 @@
 !node_modules/@modelcontextprotocol/sdk/dist/**/*
+
+# AIアシスタント向けドキュメント
+!memory-bank/
