@@ -6,7 +6,6 @@
  * AIVM マニフェストのボイスサンプル情報
  */
 export type AivmManifestVoiceSample = {
-    audio: string;
-    transcript: string;
+  audio: string;
+  transcript: string;
 };
-

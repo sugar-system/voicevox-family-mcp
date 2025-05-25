@@ -3,9 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type SpeakerMetaForTextBox = {
-    speakerUuid: string;
-    styleId: number;
-    speakerName: string;
-    styleName: string;
+  speakerUuid: string;
+  styleId: number;
+  speakerName: string;
+  styleName: string;
 };
-

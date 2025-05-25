@@ -4,6 +4,5 @@
 /* eslint-disable */
 import type { coeirocore__mora__Mora } from './coeirocore__mora__Mora';
 export type Phrase = {
-    detail: Array<Array<coeirocore__mora__Mora>>;
+  detail: Array<Array<coeirocore__mora__Mora>>;
 };
-

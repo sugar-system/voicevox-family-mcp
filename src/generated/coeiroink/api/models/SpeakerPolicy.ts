@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type SpeakerPolicy = {
-    policy?: string;
-    license?: string;
+  policy?: string;
+  license?: string;
 };
-

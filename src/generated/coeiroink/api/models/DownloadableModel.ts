@@ -5,9 +5,8 @@
 import type { Speaker } from './Speaker';
 import type { SpeakerInfo } from './SpeakerInfo';
 export type DownloadableModel = {
-    download_path: string;
-    volume: string;
-    speaker: Speaker;
-    speaker_info: SpeakerInfo;
+  download_path: string;
+  volume: string;
+  speaker: Speaker;
+  speaker_info: SpeakerInfo;
 };
-

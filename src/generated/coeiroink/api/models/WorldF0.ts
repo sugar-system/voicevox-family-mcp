@@ -4,7 +4,6 @@
 /* eslint-disable */
 import type { MoraDuration } from './MoraDuration';
 export type WorldF0 = {
-    f0: Array<number>;
-    moraDurations: Array<MoraDuration>;
+  f0: Array<number>;
+  moraDurations: Array<MoraDuration>;
 };
-

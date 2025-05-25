@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type coeirocore__model__Style = {
-    name: string;
-    id: number;
+  name: string;
+  id: number;
 };
-

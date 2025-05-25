@@ -6,9 +6,8 @@
  * 依存ライブラリのライセンス情報
  */
 export type LicenseInfo = {
-    name: string;
-    version?: string;
-    license?: string;
-    text: string;
+  name: string;
+  version?: string;
+  license?: string;
+  text: string;
 };
-

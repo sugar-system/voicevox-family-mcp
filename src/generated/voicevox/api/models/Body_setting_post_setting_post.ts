@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type Body_setting_post_setting_post = {
-    cors_policy_mode?: string;
-    allow_origin?: string;
+  cors_policy_mode?: string;
+  allow_origin?: string;
 };
-

@@ -4,6 +4,5 @@
 /* eslint-disable */
 import type { DictionaryWord } from './DictionaryWord';
 export type DictionaryWords = {
-    dictionaryWords: Array<DictionaryWord>;
+  dictionaryWords: Array<DictionaryWord>;
 };
-

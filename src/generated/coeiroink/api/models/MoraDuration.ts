@@ -5,9 +5,8 @@
 import type { PhonemeDuration } from './PhonemeDuration';
 import type { TimeRange } from './TimeRange';
 export type MoraDuration = {
-    mora: string;
-    hira: string;
-    phonemePitches: Array<PhonemeDuration>;
-    wavRange: TimeRange;
+  mora: string;
+  hira: string;
+  phonemePitches: Array<PhonemeDuration>;
+  wavRange: TimeRange;
 };
-

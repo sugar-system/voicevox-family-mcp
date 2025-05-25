@@ -3,10 +3,12 @@
     "openapi-typescript-codegen": "^0.29.0"
   },
   "scripts": {
+    "format:generated": "prettier --write */api/**/*.ts",
     "generate": "npx openapi-typescript-codegen --input openapi.json --output api/",
     "generate:voicevox": "npx openapi-typescript-codegen --input voicevox/openapi.json --output voicevox/api/",
     "generate:aivis": "npx openapi-typescript-codegen --input aivis-speech/openapi.json --output aivis-speech/api/",
     "generate:coeiroink": "npx openapi-typescript-codegen --input coeiroink/openapi.json --output coeiroink/api/",
-    "generate:all": "npm run generate:voicevox && npm run generate:aivis && npm run generate:coeiroink"
+    "generate:sharevox": "npx openapi-typescript-codegen --input sharevox/openapi.json --output sharevox/api/",
+    "generate:all": "npm run generate:voicevox && npm run generate:aivis && npm run generate:coeiroink && npm run generate:sharevox && npm run format:generated"
   }
 }

@@ -4,7 +4,6 @@
 /* eslint-disable */
 import type { TimeRange } from './TimeRange';
 export type PhonemeDuration = {
-    phoneme: string;
-    wavRange: TimeRange;
+  phoneme: string;
+  wavRange: TimeRange;
 };
-

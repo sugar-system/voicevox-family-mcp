@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type EngineInfo = {
-    device: string;
-    version: string;
+  device: string;
+  version: string;
 };
-

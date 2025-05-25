@@ -8,25 +8,24 @@ import type { SpeakerSupportedFeatures } from './SpeakerSupportedFeatures';
  * キャラクター情報
  */
 export type Speaker = {
-    /**
-     * 名前
-     */
-    name: string;
-    /**
-     * キャラクターの UUID
-     */
-    speaker_uuid: string;
-    /**
-     * スタイルの一覧
-     */
-    styles: Array<SpeakerStyle>;
-    /**
-     * キャラクターのバージョン
-     */
-    version: string;
-    /**
-     * キャラクターの対応機能
-     */
-    supported_features?: SpeakerSupportedFeatures;
+  /**
+   * 名前
+   */
+  name: string;
+  /**
+   * キャラクターの UUID
+   */
+  speaker_uuid: string;
+  /**
+   * スタイルの一覧
+   */
+  styles: Array<SpeakerStyle>;
+  /**
+   * キャラクターのバージョン
+   */
+  version: string;
+  /**
+   * キャラクターの対応機能
+   */
+  supported_features?: SpeakerSupportedFeatures;
 };
-

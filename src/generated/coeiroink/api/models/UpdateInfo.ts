@@ -3,8 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type UpdateInfo = {
-    version: string;
-    date: string;
-    contents: Array<string>;
+  version: string;
+  date: string;
+  contents: Array<string>;
 };
-

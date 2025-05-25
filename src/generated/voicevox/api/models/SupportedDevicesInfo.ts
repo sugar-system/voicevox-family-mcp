@@ -6,8 +6,7 @@
  * 対応しているデバイスの情報
  */
 export type SupportedDevicesInfo = {
-    cpu: boolean;
-    cuda: boolean;
-    dml: boolean;
+  cpu: boolean;
+  cuda: boolean;
+  dml: boolean;
 };
-

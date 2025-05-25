@@ -8,10 +8,9 @@ import type { SpeakerSupportedFeatures } from './SpeakerSupportedFeatures';
  * スピーカー情報
  */
 export type Speaker = {
-    supported_features?: SpeakerSupportedFeatures;
-    name: string;
-    speaker_uuid: string;
-    styles: Array<SpeakerStyle>;
-    version?: string;
+  supported_features?: SpeakerSupportedFeatures;
+  name: string;
+  speaker_uuid: string;
+  styles: Array<SpeakerStyle>;
+  version?: string;
 };
-

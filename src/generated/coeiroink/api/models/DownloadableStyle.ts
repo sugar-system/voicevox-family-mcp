@@ -3,11 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 export type DownloadableStyle = {
-    styleName: string;
-    styleId: number;
-    version: string;
-    iconBase64: string;
-    voiceSampleBase64s: Array<string>;
-    downloadUrl: string;
+  styleName: string;
+  styleId: number;
+  version: string;
+  iconBase64: string;
+  voiceSampleBase64s: Array<string>;
+  downloadUrl: string;
 };
-

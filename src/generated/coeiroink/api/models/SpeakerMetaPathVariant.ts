@@ -4,10 +4,9 @@
 /* eslint-disable */
 import type { StylePathVariant } from './StylePathVariant';
 export type SpeakerMetaPathVariant = {
-    speakerName: string;
-    speakerUuid: string;
-    styles: Array<StylePathVariant>;
-    version?: string;
-    pathPortrait: string;
+  speakerName: string;
+  speakerUuid: string;
+  styles: Array<StylePathVariant>;
+  version?: string;
+  pathPortrait: string;
 };
-

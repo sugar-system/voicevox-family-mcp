@@ -3,6 +3,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type MorphableTargetInfo = {
-    is_morphable: boolean;
+  is_morphable: boolean;
 };
-

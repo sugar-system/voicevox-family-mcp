@@ -8,7 +8,6 @@ import type { SpeakerInfo } from './SpeakerInfo';
  * 音声ライブラリに含まれるキャラクターの情報。
  */
 export type LibrarySpeaker = {
-    speaker: Speaker;
-    speaker_info: SpeakerInfo;
+  speaker: Speaker;
+  speaker_info: SpeakerInfo;
 };
-

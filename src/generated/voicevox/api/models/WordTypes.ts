@@ -8,9 +8,9 @@
  *
  */
 export enum WordTypes {
-    PROPER_NOUN = 'PROPER_NOUN',
-    COMMON_NOUN = 'COMMON_NOUN',
-    VERB = 'VERB',
-    ADJECTIVE = 'ADJECTIVE',
-    SUFFIX = 'SUFFIX',
+  PROPER_NOUN = 'PROPER_NOUN',
+  COMMON_NOUN = 'COMMON_NOUN',
+  VERB = 'VERB',
+  ADJECTIVE = 'ADJECTIVE',
+  SUFFIX = 'SUFFIX',
 }

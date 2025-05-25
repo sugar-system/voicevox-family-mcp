@@ -3,8 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type coeirocore__mora__Mora = {
-    phoneme: string;
-    hira: string;
-    accent: number;
+  phoneme: string;
+  hira: string;
+  accent: number;
 };
-

@@ -6,8 +6,7 @@
  * エンジンのアップデート情報
  */
 export type UpdateInfo = {
-    version: string;
-    descriptions: Array<string>;
-    contributors?: Array<string>;
+  version: string;
+  descriptions: Array<string>;
+  contributors?: Array<string>;
 };
-

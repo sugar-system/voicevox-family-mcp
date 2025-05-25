@@ -12,13 +12,12 @@ import type { LibrarySpeaker } from './LibrarySpeaker';
  * AIVM マニフェストを基に Speaker / SpeakerStyle / SpeakerInfo / StyleInfo モデルに変換したもの。
  */
 export type AivmInfo = {
-    is_loaded: boolean;
-    is_update_available: boolean;
-    is_private_model: boolean;
-    latest_version: string;
-    file_path: string;
-    file_size: number;
-    manifest: AivmManifest;
-    speakers: Array<LibrarySpeaker>;
+  is_loaded: boolean;
+  is_update_available: boolean;
+  is_private_model: boolean;
+  latest_version: string;
+  file_path: string;
+  file_size: number;
+  manifest: AivmManifest;
+  speakers: Array<LibrarySpeaker>;
 };
-

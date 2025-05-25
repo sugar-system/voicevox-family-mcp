@@ -8,9 +8,8 @@ import type { SpeakerInfo } from './SpeakerInfo';
  * ダウンロード可能な音声ライブラリの情報（最新情報をwebで取得することを考慮して、ローカルの情報はない）
  */
 export type DownloadableLibrary = {
-    download_url: string;
-    bytes: number;
-    speaker: Speaker;
-    speaker_info: SpeakerInfo;
+  download_url: string;
+  bytes: number;
+  speaker: Speaker;
+  speaker_info: SpeakerInfo;
 };
-

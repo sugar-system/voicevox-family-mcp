@@ -6,9 +6,8 @@
  * スタイルの追加情報
  */
 export type StyleInfo = {
-    id: number;
-    icon: string;
-    portrait?: string;
-    voice_samples: Array<string>;
+  id: number;
+  icon: string;
+  portrait?: string;
+  voice_samples: Array<string>;
 };
-

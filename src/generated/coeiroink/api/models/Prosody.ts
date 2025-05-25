@@ -4,7 +4,6 @@
 /* eslint-disable */
 import type { coeirocore__mora__Mora } from './coeirocore__mora__Mora';
 export type Prosody = {
-    plain: Array<string>;
-    detail: Array<Array<coeirocore__mora__Mora>>;
+  plain: Array<string>;
+  detail: Array<Array<coeirocore__mora__Mora>>;
 };
-

@@ -3,8 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type StyleInfo = {
-    id: number;
-    icon: string;
-    voice_samples: Array<string>;
+  id: number;
+  icon: string;
+  voice_samples: Array<string>;
 };
-

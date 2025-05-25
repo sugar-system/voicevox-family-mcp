@@ -3,6 +3,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type Status = {
-    status: string;
+  status: string;
 };
-

@@ -3,9 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type DictionaryWord = {
-    word: string;
-    yomi: string;
-    accent: number;
-    numMoras: number;
+  word: string;
+  yomi: string;
+  accent: number;
+  numMoras: number;
 };
-

@@ -6,7 +6,6 @@
  * model_config.jsonをdictにした機械学習に利用するための情報
  */
 export type ModelConfig = {
-    length_regulator: string;
-    start_id: number;
+  length_regulator: string;
+  start_id: number;
 };
-

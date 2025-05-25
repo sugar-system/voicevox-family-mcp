@@ -3,6 +3,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type SpeakerFolderPath = {
-    speakerFolderPath: string;
+  speakerFolderPath: string;
 };
-

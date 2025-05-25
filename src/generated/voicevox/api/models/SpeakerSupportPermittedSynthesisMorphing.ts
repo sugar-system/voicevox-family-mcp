@@ -6,7 +6,7 @@
  * An enumeration.
  */
 export enum SpeakerSupportPermittedSynthesisMorphing {
-    ALL = 'ALL',
-    SELF_ONLY = 'SELF_ONLY',
-    NOTHING = 'NOTHING',
+  ALL = 'ALL',
+  SELF_ONLY = 'SELF_ONLY',
+  NOTHING = 'NOTHING',
 }

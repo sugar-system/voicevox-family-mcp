@@ -3,9 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type StylePathVariant = {
-    styleName: string;
-    styleId: number;
-    pathIcon: string;
-    pathPortrait?: string;
+  styleName: string;
+  styleId: number;
+  pathIcon: string;
+  pathPortrait?: string;
 };
-

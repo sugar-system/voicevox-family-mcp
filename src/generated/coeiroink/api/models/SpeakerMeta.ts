@@ -4,10 +4,9 @@
 /* eslint-disable */
 import type { coeirocore__meta__Style } from './coeirocore__meta__Style';
 export type SpeakerMeta = {
-    speakerName: string;
-    speakerUuid: string;
-    styles: Array<coeirocore__meta__Style>;
-    version?: string;
-    base64Portrait: string;
+  speakerName: string;
+  speakerUuid: string;
+  styles: Array<coeirocore__meta__Style>;
+  version?: string;
+  base64Portrait: string;
 };
-

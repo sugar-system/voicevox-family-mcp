@@ -3,6 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export enum ModelFormat {
-    SAFETENSORS = 'Safetensors',
-    ONNX = 'ONNX',
+  SAFETENSORS = 'Safetensors',
+  ONNX = 'ONNX',
 }

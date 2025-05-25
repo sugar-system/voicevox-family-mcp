@@ -7,6 +7,5 @@ import type { SpeakerSupportPermittedSynthesisMorphing } from './SpeakerSupportP
  * 話者の対応機能の情報
  */
 export type SpeakerSupportedFeatures = {
-    permitted_synthesis_morphing?: SpeakerSupportPermittedSynthesisMorphing;
+  permitted_synthesis_morphing?: SpeakerSupportPermittedSynthesisMorphing;
 };
-

@@ -6,7 +6,6 @@
  * スピーカーのスタイル情報
  */
 export type SpeakerStyle = {
-    name: string;
-    id: number;
+  name: string;
+  id: number;
 };
-

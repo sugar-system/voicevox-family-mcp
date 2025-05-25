@@ -4,7 +4,6 @@
 /* eslint-disable */
 import type { CorsPolicyMode } from './CorsPolicyMode';
 export type Body_setting_post_setting_post = {
-    cors_policy_mode: CorsPolicyMode;
-    allow_origin?: string;
+  cors_policy_mode: CorsPolicyMode;
+  allow_origin?: string;
 };
-

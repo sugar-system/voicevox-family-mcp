@@ -6,17 +6,16 @@
  * 対応しているデバイスの情報。
  */
 export type SupportedDevicesInfo = {
-    /**
-     * CPU に対応しているか
-     */
-    cpu: boolean;
-    /**
-     * CUDA (NVIDIA GPU) に対応しているか
-     */
-    cuda: boolean;
-    /**
-     * DirectML (NVIDIA GPU/Radeon GPU 等) に対応しているか
-     */
-    dml: boolean;
+  /**
+   * CPU に対応しているか
+   */
+  cpu: boolean;
+  /**
+   * CUDA (NVIDIA GPU) に対応しているか
+   */
+  cuda: boolean;
+  /**
+   * DirectML (NVIDIA GPU/Radeon GPU 等) に対応しているか
+   */
+  dml: boolean;
 };
-

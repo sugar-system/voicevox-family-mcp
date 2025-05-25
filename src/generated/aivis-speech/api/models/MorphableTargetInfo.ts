@@ -6,9 +6,8 @@
  * モーフィング相手としての情報。
  */
 export type MorphableTargetInfo = {
-    /**
-     * 指定したキャラクターに対してモーフィングの可否
-     */
-    is_morphable: boolean;
+  /**
+   * 指定したキャラクターに対してモーフィングの可否
+   */
+  is_morphable: boolean;
 };
-

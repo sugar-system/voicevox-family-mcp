@@ -4,9 +4,8 @@
 /* eslint-disable */
 import type { coeirocore__model__Style } from './coeirocore__model__Style';
 export type Speaker = {
-    name: string;
-    speaker_uuid: string;
-    styles: Array<coeirocore__model__Style>;
-    version: string;
+  name: string;
+  speaker_uuid: string;
+  styles: Array<coeirocore__model__Style>;
+  version: string;
 };
-
