@@ -1,23 +1,17 @@
 {
   "mcpServers": {
-    "aivis-speech": {
+    "voicevox-family-mcp": {
       "command": "node",
       "args": [
-        "D:\\proj\\mcp\\voicevox-mcp\\dist\\server.js",
-        "--engine",
-        "aivis",
-        "--url",
-        "http://localhost:10101"
-      ]
-    },
-    "voicevox": {
-      "command": "node",
-      "args": [
-        "D:\\proj\\mcp\\voicevox-mcp\\dist\\server.js",
-        "--engine",
-        "voicevox",
-        "--url",
-        "http://localhost:50021"
+        "path\\to\\voicevox-family-mcp\\dist\\server.js",
+        "--server",
+        "voicevox,http://localhost:50021,voicevox",
+        "--server",
+        "aivis,http://localhost:10101,aivis",
+        "--server",
+        "coeiroink,http://localhost:50032,voicevox",
+        "--server",
+        "sharevox,http://localhost:50025,voicevox"
       ]
     }
   }
