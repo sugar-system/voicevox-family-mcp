@@ -39,7 +39,6 @@ export function createSpeakResponseFactory(
       case 'aivis':
         return 888753760;
       case 'voicevox':
-      case 'coeiroink_v2':
         return 0;
       default:
         return 0;

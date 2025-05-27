@@ -34,16 +34,14 @@ function parseServerString(serverString: string): ServerInfo {
     );
   }
 
-  if (!['aivis', 'voicevox', 'coeiroink_v2'].includes(type)) {
-    throw new Error(
-      `Invalid server type: "${type}". Must be one of: aivis, voicevox, coeiroink_v2`,
-    );
+  if (!['aivis', 'voicevox'].includes(type)) {
+    throw new Error(`Invalid server type: "${type}". Must be one of: aivis, voicevox`);
   }
 
   return {
     id,
     url,
-    type: type as 'aivis' | 'voicevox' | 'coeiroink_v2',
+    type: type as 'aivis' | 'voicevox',
   };
 }
 
@@ -140,7 +138,7 @@ Usage:
 New Multi-Server Format:
   --server, -s    Server configuration in format "id,url,type"
                   Can be specified multiple times for multiple servers
-                  Types: aivis, voicevox, coeiroink_v2
+                  Types: aivis, voicevox
 
 Legacy Single-Server Format (for backward compatibility):
   --engine, -e    Voice synthesis engine type (aivis or voicevox) [default: aivis]
@@ -154,7 +152,7 @@ Examples:
   node server.js \\
     --server "voicevox-main,http://localhost:50021,voicevox" \\
     --server "aivis-local,http://localhost:10101,aivis" \\
-    --server "coeiroink,http://localhost:50032,coeiroink_v2"
+    --server "sharevox,http://localhost:50025,voicevox"
 
   # Legacy single-server setup
   node server.js --engine aivis --url http://localhost:10101

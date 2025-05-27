@@ -143,7 +143,7 @@
 node server.js \
   --server "voicevox-main,http://localhost:50021,voicevox" \
   --server "aivis-local,http://localhost:10101,aivis" \
-  --server "coeiroink,http://localhost:50032,coeiroink_v2"
+  --server "sharevox,http://localhost:50025,voicevox"
 
 # 従来の単一サーバ（後方互換性）
 node server.js --engine aivis --url http://localhost:10101

@@ -41,16 +41,14 @@ describe('Server Configuration Functions', () => {
         );
       }
 
-      if (!['aivis', 'voicevox', 'coeiroink_v2'].includes(type)) {
-        throw new Error(
-          `Invalid server type: "${type}". Must be one of: aivis, voicevox, coeiroink_v2`,
-        );
+      if (!['aivis', 'voicevox'].includes(type)) {
+        throw new Error(`Invalid server type: "${type}". Must be one of: aivis, voicevox`);
       }
 
       return {
         id,
         url,
-        type: type as 'aivis' | 'voicevox' | 'coeiroink_v2',
+        type: type as 'aivis' | 'voicevox',
       };
     };
 
@@ -72,16 +70,6 @@ describe('Server Configuration Functions', () => {
           id: 'aivis-server',
           url: 'http://localhost:10101',
           type: 'aivis',
-        });
-      });
-
-      test('coeiroink_v2 タイプをパースできる', () => {
-        const result = parseServerString('coeiroink-server,http://localhost:50032,coeiroink_v2');
-
-        expect(result).toEqual({
-          id: 'coeiroink-server',
-          url: 'http://localhost:50032',
-          type: 'coeiroink_v2',
         });
       });
 
@@ -117,7 +105,7 @@ describe('Server Configuration Functions', () => {
 
       test('不正なサーバータイプの場合はエラーを投げる', () => {
         expect(() => parseServerString('test,http://localhost:50021,invalid')).toThrow(
-          'Invalid server type: "invalid". Must be one of: aivis, voicevox, coeiroink_v2',
+          'Invalid server type: "invalid". Must be one of: aivis, voicevox',
         );
       });
     });
@@ -149,11 +137,11 @@ describe('Server Configuration Functions', () => {
             const parts = serverString.split(',');
             if (parts.length === 3) {
               const [id, url, type] = parts.map(part => part.trim());
-              if (id && url && type && ['aivis', 'voicevox', 'coeiroink_v2'].includes(type)) {
+              if (id && url && type && ['aivis', 'voicevox'].includes(type)) {
                 servers.push({
                   id,
                   url,
-                  type: type as 'aivis' | 'voicevox' | 'coeiroink_v2',
+                  type: type as 'aivis' | 'voicevox',
                 });
               }
             }

@@ -4,7 +4,7 @@
 export interface ServerInfo {
   id: string;
   url: string;
-  type: 'aivis' | 'voicevox' | 'coeiroink_v2';
+  type: 'aivis' | 'voicevox';
 }
 
 /**
